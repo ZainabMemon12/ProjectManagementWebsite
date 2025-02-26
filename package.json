@@ -4,8 +4,8 @@
   "description": "hackathon project",
   "main": "backend/server.js",
  "scripts": {
-  "build": "cd frontend && npm install && npm run build && cd .. && mkdir backend\\public 2>nul && npx cpy \"frontend/dist/**/*\" backend/public",
-  "start": "node backend/index.js",
+  "build": "cd frontend && npm install && npm run build && cd .. && mkdir -p backend/public && npx cpy \"frontend/dist/**/*\" backend/public",
+"start": "node backend/index.js",
   "test": "echo \"Error: no test specified\" && exit 1"
 },
   "repository": {
