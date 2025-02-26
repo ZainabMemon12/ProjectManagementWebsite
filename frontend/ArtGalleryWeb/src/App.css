@@ -104,7 +104,7 @@
 .admin-navbar .search {
   color: #364176fd;
   position: absolute;
-  left: 355px;
+  left: 350px;
 }
 
 .logout-btn {
@@ -133,13 +133,14 @@
   margin-top: 10px;
   padding: 10px;
 }
-.link i{
-  margin-right: 10px;
+.link.active {
+  color: #a28ee7;
 }
-
-.left-link:hover {
-  background-color: #7c5eea;
-  border-radius: 10px;
+.link span {
+  font-size: 13px;
+}
+.link i {
+  margin-right: 10px;
 }
 
 .admin-main {
@@ -149,8 +150,8 @@
 .admin-main-right {
   background-color: #161d38;
   padding: 50px 30px;
- width: 100%;
- overflow-x: hidden;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .admin-main-right h1 {
@@ -206,7 +207,6 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.136);
   border-left: 2px solid #7c5eea;
   border-radius: 20px;
-  
 }
 .hover-card2 {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -348,7 +348,7 @@
   justify-content: space-between;
   padding: 10px 20px 10px 60px;
   align-items: center;
-  height: 36px;
+  height: 50px;
   margin-top: 10px;
 }
 
@@ -358,9 +358,9 @@
 }
 
 .employee-list::before {
-  top: 18px;
+  top: 14px;
 }
-.input-con{
+.input-con {
   color: white;
 }
 
@@ -451,7 +451,6 @@
   background-color: #1d2549;
   width: 60%;
   padding: 50px;
-  
 }
 
 .add-employee-con h1 {
@@ -653,8 +652,8 @@
   background-color: #121731;
   border: 0.5px solid rgba(255, 255, 255, 0.11);
   box-shadow: 2px 2px 10px rgba(255, 255, 255, 0.055);
-  padding: 20px;
-  height: 100vh;
+  padding: 20px 20px 50px 20px;
+  height: 100%;
 }
 .all-pro-con h4 {
   font-weight: 300;
@@ -1133,26 +1132,22 @@
 
 .user-left-link {
   margin-top: 30px;
-  color: #7e8bab;
   font-size: 20px;
 }
-.user-left-link:hover {
-  color: #b8c0d7;
+.user-link i {
+  color:#7e8babdc;
 }
-.user-link i{
-  color:#7e8bab ;
-}
-.user-link{
+.user-link {
   text-decoration: none;
 }
 .user-link span {
-  color: #7e8bab;
+  color: #7e8babdc;
   text-decoration: none;
-  margin-left: 20px;
+  margin-left: 10px;
   font-size: 15px;
 }
-.user-link:hover {
-  color: #cfd8f1;
+.user-link.active {
+  color: white;
 }
 .user-nav-btn {
   background-color: #191f37;
@@ -1169,7 +1164,6 @@
 }
 .user-dashboard-heading-search {
   justify-content: space-between;
- 
 }
 .user-dashboard-heading-search h2 strong {
   color: black;
@@ -1192,7 +1186,6 @@
   padding-left: 20px;
   align-items: center;
   border-radius: 5px;
- 
 }
 .user-search-bar i {
   color: gray;
@@ -1285,7 +1278,6 @@
 }
 .user-dashboard-detail-card-heading {
   margin-top: 20px;
- 
 }
 .user-dashboard-detail-card {
   margin-top: 10px;
@@ -1391,9 +1383,9 @@
   border-radius: 20px;
   width: 80%;
 }
-.pro-details{
+.pro-details {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 40px;
 }
 .user-dashboard-pro-priority {
@@ -1562,71 +1554,66 @@
 .user-dashboard-employees-All-cards:hover {
   background-color: rgba(173, 216, 230, 0.242);
 }
-.user-projects{
+.user-projects {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
   margin-top: 20px;
   gap: 20px;
 }
-.user-dashboard-em-pro{
+.user-dashboard-em-pro {
   box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.162);
   padding: 20px;
   border-radius: 20px;
-
-
 }
-.User-Dashboard-boxes-con{
+.User-Dashboard-boxes-con {
   box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.162);
   margin-top: 20px;
   padding: 10px;
 }
-.pro-box-heading-user-dashboard{
+.pro-box-heading-user-dashboard {
   font-size: 14px;
- 
-
 }
-.pro-box-heading-user-dashboard p{
+.pro-box-heading-user-dashboard p {
   border-bottom: 3px solid;
   padding-bottom: 10px;
   font-weight: 700;
 }
-.pro-box-heading-user-dashboard span{
+.pro-box-heading-user-dashboard span {
   border: 1px solid black;
   padding: 0px 10px;
   border-radius: 10px;
 }
-.userdashboard-pro-box{
+.userdashboard-pro-box {
   background-color: rgba(128, 128, 128, 0.153);
   box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.162);
 }
-.userdashboard-pro-boxss{
+.userdashboard-pro-boxss {
   background-color: white;
   padding-top: 5px;
   box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.434);
 }
-.userdashboard-pro-boxss h3{
+.userdashboard-pro-boxss h3 {
   color: #191f37;
 }
-.userdashboard-pro-boxss p{
+.userdashboard-pro-boxss p {
   color: rgb(83, 80, 80);
 }
 
-.user-edit-btn{
+.user-edit-btn {
   height: fit-content;
   background-color: transparent;
   border: none;
   color: #32226b;
   font-size: 16px;
   padding: 2px;
-  
 }
-.user-edit-btn:hover{
+.user-edit-btn:hover {
   background-color: #3e41de62;
 }
-.edit-project-form-container{
+.edit-project-form-container {
   margin-top: 30px;
 }
-.profile-edit select{
+.profile-edit select {
   padding: 5px;
   margin-left: 10px;
 }

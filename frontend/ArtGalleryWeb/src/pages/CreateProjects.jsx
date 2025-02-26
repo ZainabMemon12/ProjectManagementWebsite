@@ -30,7 +30,7 @@ const CreateProjects = () => {
         <AdminNavbar />
         <div className="admin-main">
           <AdminLeftNav />
-          <div className="admin-main-right">
+          <div className="admin-main-right create-pro-resp">
             <div className="add-employee-con">
               <h1>Add New Project</h1>
 

@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import AdminLeftNav from "../components/AdminLeftNav";
 import AdminNavbar from "../components/AdminNavbar";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  fetchProjectById,
-  updateProject,
-  deleteProject,
-} from "../hooks/FetchEditProject";
-import { Spin } from "antd";
+import { fetchProjectById, updateProject, deleteProject } from "../hooks/FetchEditProject";
+import { Spin, Select } from "antd";
 import FetchEmployees from "../hooks/FetchEmployees";
+
+const { Option } = Select;
 
 const EditProject = () => {
   const { id } = useParams();
@@ -20,7 +18,7 @@ const EditProject = () => {
     title: "",
     description: "",
     status: "",
-    assignedTo: "",
+    assignedTo: [], // now an array for multiple selection
     priority: "",
     progress: "",
     createdAt: "",
@@ -41,9 +39,15 @@ const EditProject = () => {
           title: data.title,
           description: data.description,
           status: data.status,
-          assignedTo: data.assignedTo,
+          assignedTo: Array.isArray(data.assignedTo)
+            ? data.assignedTo.map((assignee) =>
+                typeof assignee === "string" ? assignee : assignee._id
+              )
+            : [typeof data.assignedTo === "string" ? data.assignedTo : data.assignedTo?._id],
           priority: data.priority,
           progress: data.progress,
+          createdAt: data.createdAt,
+          updatedAt: data.updatedAt,
         });
       } catch (err) {
         setError(err.message);
@@ -70,6 +74,7 @@ const EditProject = () => {
     getEmployees();
   }, []);
 
+  // Standard change handler for text/radio inputs
   const handleChange = (e) => {
     setUpdatedData({ ...updatedData, [e.target.name]: e.target.value });
   };
@@ -91,9 +96,7 @@ const EditProject = () => {
   };
 
   const handleDelete = async () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this project?"
-    );
+    const confirmDelete = window.confirm("Are you sure you want to delete this project?");
     if (!confirmDelete) return;
 
     try {
@@ -104,18 +107,22 @@ const EditProject = () => {
       setError(err.message);
     }
   };
-  const getAssignedEmployee = () => {
-    if (!project || !employees.length) return null;
-    const assignedId =
-      typeof project.assignedTo === "string"
-        ? project.assignedTo
-        : project.assignedTo?._id;
-    return employees.find(
-      (emp) => emp._id.toString() === assignedId?.toString()
-    );
+
+  // Helper to return an array of assigned employee objects
+  const getAssignedEmployees = () => {
+    if (!project || !employees.length) return [];
+    const assigned = Array.isArray(project.assignedTo)
+      ? project.assignedTo
+      : [project.assignedTo];
+    return assigned
+      .map((assignee) => {
+        const assignedId = typeof assignee === "string" ? assignee : assignee._id;
+        return employees.find((emp) => emp._id.toString() === assignedId.toString());
+      })
+      .filter(Boolean);
   };
 
-  const assignedEmployee = getAssignedEmployee();
+  const assignedEmployees = getAssignedEmployees();
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -126,13 +133,11 @@ const EditProject = () => {
         <AdminNavbar />
         <div className="admin-main">
           <AdminLeftNav />
-          <div className="admin-main-right" style={{height:"100vh"}}>
-            <Spin size="large"  style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-              }} />
+          <div className="admin-main-right" style={{ height: "100vh" }}>
+            <Spin
+              size="large"
+              style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}
+            />
           </div>
         </div>
       </div>
@@ -156,14 +161,9 @@ const EditProject = () => {
       <AdminNavbar />
       <div className="admin-main">
         <AdminLeftNav />
-        <div className="admin-main-right">
+        <div className="admin-main-right edit-pro-res">
           {loading ? (
-            <div  style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100%",
-            }}>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
               <Spin />
             </div>
           ) : error ? (
@@ -176,101 +176,47 @@ const EditProject = () => {
                   <form onSubmit={handleSubmit}>
                     <div className="flex-col">
                       <label>Title:</label>
-                      <input
-                        type="text"
-                        name="title"
-                        value={updatedData.title}
-                        onChange={handleChange}
-                      />
+                      <input type="text" name="title" value={updatedData.title} onChange={handleChange} />
                     </div>
                     <div className="flex-col">
                       <label>Description:</label>
-                      <textarea
-                        rows={"10"}
-                        cols={"10"}
-                        name="description"
-                        value={updatedData.description}
-                        onChange={handleChange}
-                      />
+                      <textarea rows="10" cols="10" name="description" value={updatedData.description} onChange={handleChange} />
                     </div>
                     <div className="flex-col" style={{ marginTop: "10px" }}>
                       <div>
                         <label className="radio-label pending">
-                          <input
-                            type="radio"
-                            name="status"
-                            value="Pending"
-                            checked={updatedData.status === "Pending"}
-                            onChange={handleChange}
-                          />
+                          <input type="radio" name="status" value="Pending" checked={updatedData.status === "Pending"} onChange={handleChange} />
                           <span>Pending</span>
                         </label>
                         <label className="radio-label in-progress">
-                          <input
-                            type="radio"
-                            name="status"
-                            value="In Progress"
-                            checked={updatedData.status === "In Progress"}
-                            onChange={handleChange}
-                          />
+                          <input type="radio" name="status" value="In Progress" checked={updatedData.status === "In Progress"} onChange={handleChange} />
                           <span>In Progress</span>
                         </label>
                         <label className="radio-label completed">
-                          <input
-                            type="radio"
-                            name="status"
-                            value="Completed"
-                            checked={updatedData.status === "Completed"}
-                            onChange={handleChange}
-                          />
+                          <input type="radio" name="status" value="Completed" checked={updatedData.status === "Completed"} onChange={handleChange} />
                           <span>Completed</span>
                         </label>
                       </div>
                     </div>
-
                     <div>
                       <div>
                         <label className="radio-label high">
-                          <input
-                            type="radio"
-                            name="priority"
-                            value="high"
-                            checked={updatedData.priority === "high"}
-                            onChange={handleChange}
-                          />
+                          <input type="radio" name="priority" value="high" checked={updatedData.priority === "high"} onChange={handleChange} />
                           <span>High</span>
                         </label>
                         <label className="radio-label medium">
-                          <input
-                            type="radio"
-                            name="priority"
-                            value="medium"
-                            checked={updatedData.priority === "medium"}
-                            onChange={handleChange}
-                          />
+                          <input type="radio" name="priority" value="medium" checked={updatedData.priority === "medium"} onChange={handleChange} />
                           <span>Medium</span>
                         </label>
                         <label className="radio-label low">
-                          <input
-                            type="radio"
-                            name="priority"
-                            value="low"
-                            checked={updatedData.priority === "low"}
-                            onChange={handleChange}
-                          />
+                          <input type="radio" name="priority" value="low" checked={updatedData.priority === "low"} onChange={handleChange} />
                           <span>Low</span>
                         </label>
                       </div>
                     </div>
-
                     <div className="flex-col">
                       <label>Progress:</label>
-                      <input
-                        type="text"
-                        name="progress"
-                        value={updatedData.progress}
-                        onChange={handleChange}
-                      />
+                      <input type="text" name="progress" value={updatedData.progress} onChange={handleChange} />
                     </div>
                     <div className="flex-col">
                       <label>Assign To:</label>
@@ -279,23 +225,25 @@ const EditProject = () => {
                       ) : employeesError ? (
                         <span>Error loading employees</span>
                       ) : (
-                        <select
-                          name="assignedTo"
+                        <Select
+                          mode="multiple"
+                          placeholder="Select employees"
                           value={updatedData.assignedTo}
-                          onChange={handleChange}
+                          onChange={(value) => setUpdatedData({ ...updatedData, assignedTo: value })}
                           className="update-pro-select"
+                          style={{
+                            width: "100%",
+                            background: "linear-gradient(45deg,rgb(8, 8, 52),rgb(103, 32, 197))",
+                            color: "black",
+                            border: "1px solid black",
+                          }}
                         >
-                          <option value="" className="update-pro-option">
-                            {assignedEmployee
-                              ? assignedEmployee.name
-                              : "Assign To"}
-                          </option>
                           {employees.map((employee) => (
-                            <option key={employee._id} value={employee._id}>
+                            <Option key={employee._id} value={employee._id}>
                               {employee.name}
-                            </option>
+                            </Option>
                           ))}
-                        </select>
+                        </Select>
                       )}
                     </div>
                     <button type="submit" disabled={isUpdating}>
@@ -308,33 +256,26 @@ const EditProject = () => {
                 <div className="project-card-preview">
                   <div className="project-preview-txt flex-row">
                     <h3>{project.title}</h3>
-                    <p
-                      className={`status-text ${project.status
-                        .replace(/\s+/g, "-")
-                        .toLowerCase()}`}
-                    >
+                    <p className={`status-text ${project.status.replace(/\s+/g, "-").toLowerCase()}`}>
                       {project.status}
                     </p>
                   </div>
-                  <p
-                    className={`priority-text ${project.priority.toLowerCase()}`}
-                  >
+                  <p className={`priority-text ${project.priority.toLowerCase()}`}>
                     {project.priority}
                   </p>
-                  <p className="pro-detail-description">
-                    {project.description}
-                  </p>
-
-                  
+                  <p className="pro-detail-description">{project.description}</p>
                   <p className="pro-emp-det">
-                    {assignedEmployee ? assignedEmployee.name : "Not Assigned"}
+                    {assignedEmployees.length > 0
+                      ? assignedEmployees.map((emp) => emp.name).join(", ")
+                      : "Not Assigned"}
                   </p>
                   <p className="pro-emp-det-em">
-                    {assignedEmployee ? assignedEmployee.email : "Not Assigned"}
+                    {assignedEmployees.length > 0
+                      ? assignedEmployees.map((emp) => emp.email).join(", ")
+                      : "Not Assigned"}
                   </p>
                   <div className="project-pb-con">
                     <p>{project.progress}%</p>
-
                     <div className="progress-bar">
                       {(() => {
                         const filledCount = Math.floor(project.progress / 10);
@@ -354,9 +295,7 @@ const EditProject = () => {
                             key={index}
                             className="dot"
                             style={{
-                              backgroundColor:
-                                index < filledCount ? filledColor : emptyColor,
-
+                              backgroundColor: index < filledCount ? filledColor : emptyColor,
                               width: "20px",
                               height: "20px",
                               borderRadius: "50%",
@@ -367,7 +306,9 @@ const EditProject = () => {
                       })()}
                     </div>
                   </div>
-                  <button className="pro-del-btn" onClick={handleDelete}>Delete Project</button>
+                  <button className="pro-del-btn" onClick={handleDelete}>
+                    Delete Project
+                  </button>
                 </div>
               </div>
             </>

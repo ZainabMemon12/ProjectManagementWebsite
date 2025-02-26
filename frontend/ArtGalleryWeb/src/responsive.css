@@ -91,6 +91,18 @@
     gap: 30px;
     padding: 5px;
   }
+  .edit-details-pro-con {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+  .Edit-pro-con {
+    width: 100%;
+    padding: 20px;
+    background-color: #121731;
+    border: 0.5px solid rgba(255, 255, 255, 0.11);
+    box-shadow: 2px 2px 10px rgba(255, 255, 255, 0.055);
+  }
   .user-dashboard-con {
     padding: 10px 0 10px 10px;
   }
@@ -323,6 +335,10 @@
   }
 }
 @media screen and (max-width: 540px) {
+  .admin-main-left {
+    width: 8%;
+    padding: 5px;
+  }
   .things-length-con {
     padding: 40px 20px 15px 0px;
   }
@@ -347,10 +363,19 @@
     position: absolute;
     left: 210px;
   }
+  .create-employee-comp-admin-main-right {
+    padding-left: 10px;
+    padding-right: 10px;
+    
+  }
   .add-employee-con {
     background-color: #1d2549;
-    width: 90%;
+    width: 95%;
     padding: 20px;
+  }
+  .create-pro-resp{
+    padding-right: 0px;
+
   }
   .add-name-email-con {
     display: grid;
@@ -719,6 +744,11 @@
     gap: 10px;
     margin-left: 0%;
   }
+  .edit-pro-res{
+    padding-left: 10px;
+    padding-right: 10px;
+
+  }
 }
 
 @media screen and (max-width: 430px) {
@@ -789,7 +819,7 @@
   .loader {
     position: relative;
     top: 0%;
-    left: 10%;
+    left: 5%;
     transform: translate(-50px -50px);
   }
   .txt p {
