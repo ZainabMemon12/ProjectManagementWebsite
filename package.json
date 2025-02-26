@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "hackathon project",
   "main": "backend/server.js",
- "scripts": {
-  "build": "cd frontend && npm install && npm run build && cd .. && mkdir -p backend/public && npx cpy \"frontend/dist/**/*\" backend/public",
-"start": "node backend/index.js",
-  "test": "echo \"Error: no test specified\" && exit 1"
-},
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build && cd .. && mkdir -p backend/public && npx cpy \"frontend/dist/**/*\" backend/public",
+    "start": "node backend/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ZainabMemon12/ProjectManagementWebsite.git"
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/ZainabMemon12/ProjectManagementWebsite/issues"
   },
-  "homepage": "https://github.com/ZainabMemon12/ProjectManagementWebsite#readme"
+  "homepage": "https://github.com/ZainabMemon12/ProjectManagementWebsite#readme",
+  "devDependencies": {
+    "cpy-cli": "^5.0.0"
+  }
 }
