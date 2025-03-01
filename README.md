@@ -1,2 +1,0 @@
-# ProjectManagementWebsite
-hackathon project
