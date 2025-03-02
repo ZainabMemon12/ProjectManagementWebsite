@@ -1,6 +1,5 @@
 export const fetchEmployeeById = async (id) => {
     try {
-        console.log("Fetching Employee with ID:", id)
       const response = await fetch(`http://localhost:4000/api/admin/${id}`);
       if (!response.ok) {
         throw new Error(`Employee not found: ${response.status}`);

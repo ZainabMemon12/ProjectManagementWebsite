@@ -9,7 +9,6 @@ import UserNavbar from "../components/UserNavbar.jsx";
 const UserDashboard = () => {
   const { userData, logout } = useAuth();
   const [showAllProjects, setShowAllProjects] = useState(false);
-  console.log(userData);
   if (!userData) {
     return <div>Loading user data...</div>;
   }

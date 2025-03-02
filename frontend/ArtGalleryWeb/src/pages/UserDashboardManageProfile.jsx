@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import UserLeftNav from "../components/UserLeftNav";
 import UserNavbar from "../components/UserNavbar.jsx";
 import { useAuth } from "../contexts/AuthContext.jsx";
+import { message } from "antd";
 import {
   fetchEmployeeById,
   updateEmployee,
@@ -48,7 +49,7 @@ const UserDashboardManageProfile = () => {
         ...formData,
       });
 
-      alert("Profile updated successfully!");
+      message.success("Project updated successfully!");
       navigate("/profile");
     } catch (error) {
       console.error("Error updating profile:", error);

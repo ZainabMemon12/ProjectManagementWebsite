@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 
 const UserLeftNav = () => {
   const { userData, logout } = useAuth();
-  console.log(userData);
   if (!userData) {
     return <div>Loading user data...</div>;
   }

@@ -19,7 +19,6 @@ const UseProjects = () => {
                 body:JSON.stringify(values)
             });
             const data = await res.json();
-            console.log(data)
             if(res.status===200){
                 message.success(data.message);
             }

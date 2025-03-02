@@ -23,7 +23,6 @@ const EditEmployee = () => {
   };
 
   const { id } = useParams();
-  console.log("Employee ID from Params:", id);
   const navigate = useNavigate();
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -75,6 +74,7 @@ const EditEmployee = () => {
       setEmployee(updatedEmployee);
       
       message.success("Employee details updated successfully!");
+      navigate("/all-employees")
     } catch (err) {
       message.error("Failed to update employee: " + err.message);
     }

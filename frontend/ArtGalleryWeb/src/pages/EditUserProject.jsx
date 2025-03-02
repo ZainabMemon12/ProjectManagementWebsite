@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchProjectById, updateProject } from "../hooks/FetchEditProject.js";
 import { Spin } from "antd";
+import { message } from "antd";
 
 const EditUserProject = () => {
   const { userData, updateUserData } = useAuth();
@@ -63,11 +64,12 @@ const EditUserProject = () => {
 
     try {
       await updateProject(id, formData);
-      alert("Project updated successfully!");
+      message.success("Project updated successfully!");
       navigate("/userdashboard-projects");
     } catch (err) {
       console.error("Error updating project:", err);
       setError("Failed to update project. Please try again.");
+      message.error("Failed to update project. Please try again.");
     }
   };
 
