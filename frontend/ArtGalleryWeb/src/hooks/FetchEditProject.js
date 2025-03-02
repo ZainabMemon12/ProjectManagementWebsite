@@ -1,6 +1,6 @@
 export const fetchProjectById = async (id) => {
     try {
-      const response = await fetch(`https://project-management-website-z.vercel.app/api/project/${id}`);
+      const response = await fetch(`https://project-management-website-backend.vercel.app/api/project/${id}`);
       if (!response.ok) {
         throw new Error(`project not found: ${response.status}`);
       }
@@ -12,7 +12,7 @@ export const fetchProjectById = async (id) => {
   };
   export const updateProject = async (id, updatedData) => {
     try {
-      const response = await fetch(`https://project-management-website-z.vercel.app/api/project/${id}`, {
+      const response = await fetch(`https://project-management-website-backend.vercel.app/api/project/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedData),
@@ -30,7 +30,7 @@ export const fetchProjectById = async (id) => {
   };
   export const deleteProject = async (id) => {
     try {
-        const response = await fetch(`https://project-management-website-z.vercel.app/api/project/${id}`, {
+        const response = await fetch(`https://project-management-website-backend.vercel.app/api/project/${id}`, {
             method: "DELETE",
         });
 
