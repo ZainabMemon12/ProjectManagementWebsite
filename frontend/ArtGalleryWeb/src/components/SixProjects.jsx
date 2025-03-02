@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FetchProjects from "../hooks/FetchProjects";
 import { Spin } from "antd";
+import { message } from "antd";
 
 const SixProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -32,7 +33,7 @@ const SixProjects = () => {
     );
   }
   if (error) {
-    return <div>Error: {error}</div>;
+    return message.error("Error fetching data");
   }
   return (
     <>

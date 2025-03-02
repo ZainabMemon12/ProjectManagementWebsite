@@ -8,6 +8,8 @@ import {
 import AdminNavbar from "../components/AdminNavbar";
 import AdminLeftNav from "../components/AdminLeftNav";
 import { Spin } from "antd";
+import { Modal } from "antd";
+import { message } from "antd";
 
 
 const EditEmployee = () => {
@@ -66,30 +68,35 @@ const EditEmployee = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       await updateEmployee(id, updatedData);
       const updatedEmployee = await fetchEmployeeById(id);
       setEmployee(updatedEmployee);
-      alert("Employee details updated!");
+      
+      message.success("Employee details updated successfully!");
     } catch (err) {
-      setError(err.message);
+      message.error("Failed to update employee: " + err.message);
     }
   };
 
   const handleDelete = async () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this employee?"
-    );
-    if (!confirmDelete) return;
-
-    try {
-      await deleteEmployee(id);
-      alert("Employee deleted successfully!");
-      navigate("/all-employees");
-    } catch (err) {
-      setError(err.message);
-    }
+    Modal.confirm({
+      title: "Are you sure you want to delete this employee?",
+      content: "This action cannot be undone.",
+      okText: "Yes, Delete",
+      cancelText: "Cancel",
+      okType: "danger",
+      onOk: async () => {
+        try {
+          await deleteEmployee(id);
+          alert("Employee deleted successfully!");
+          navigate("/all-employees");
+        } catch (err) {
+          message.error("Failed to delete employee: " + err.message);
+        }
+      },
+    });
   };
 
   if (error) {

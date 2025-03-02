@@ -1,7 +1,7 @@
 export const fetchEmployeeById = async (id) => {
     try {
         console.log("Fetching Employee with ID:", id)
-      const response = await fetch(`http://localhost:4000/api/admin/${id}`);
+      const response = await fetch(`https://project-management-website-z.vercel.app/api/admin/${id}`);
       if (!response.ok) {
         throw new Error(`Employee not found: ${response.status}`);
       }
@@ -13,7 +13,7 @@ export const fetchEmployeeById = async (id) => {
   };
   export const updateEmployee = async (id, updatedData) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/admin/${id}`, {
+      const response = await fetch(`https://project-management-website-z.vercel.app/api/admin/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedData),
@@ -31,7 +31,7 @@ export const fetchEmployeeById = async (id) => {
   };
   export const deleteEmployee = async (id) => {
     try {
-        const response = await fetch(`http://localhost:4000/api/admin/${id}`, {
+        const response = await fetch(`https://project-management-website-z.vercel.app/api/admin/${id}`, {
             method: "DELETE",
         });
 

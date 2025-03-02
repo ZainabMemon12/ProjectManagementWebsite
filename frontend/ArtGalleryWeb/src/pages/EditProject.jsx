@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { fetchProjectById, updateProject, deleteProject } from "../hooks/FetchEditProject";
 import { Spin, Select } from "antd";
 import FetchEmployees from "../hooks/FetchEmployees";
+import { message, Modal } from "antd";
 
 const { Option } = Select;
 
@@ -87,25 +88,33 @@ const EditProject = () => {
       await updateProject(id, updatedData);
       const updatedProject = await fetchProjectById(id);
       setProject(updatedProject);
-      alert("Project details updated!");
+      message.success("Project details updated successfully!");
     } catch (err) {
       setError(err.message);
+      message.error("Failed to update project!");
     } finally {
       setIsUpdating(false);
     }
   };
 
   const handleDelete = async () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this project?");
-    if (!confirmDelete) return;
-
-    try {
-      await deleteProject(id);
-      alert("Project deleted successfully!");
-      navigate("/All-projects");
-    } catch (err) {
-      setError(err.message);
-    }
+    Modal.confirm({
+      title: "Are you sure?",
+      content: "Do you really want to delete this project? This action cannot be undone.",
+      okText: "Yes, Delete",
+      okType: "danger",
+      cancelText: "Cancel",
+      onOk: async () => {
+        try {
+          await deleteProject(id);
+          message.success("Project deleted successfully!");
+          navigate("/All-projects");
+        } catch (err) {
+          setError(err.message);
+          message.error("Failed to delete project!");
+        }
+      },
+    });
   };
 
   // Helper to return an array of assigned employee objects

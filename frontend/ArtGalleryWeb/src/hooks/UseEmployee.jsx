@@ -11,7 +11,7 @@ const UseEmployee = () => {
         try{
             setError(null)
             setLoading(true)
-            const res = await fetch('http://localhost:4000/api/admin/register',{
+            const res = await fetch('https://project-management-website-z.vercel.app/api/admin/register',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

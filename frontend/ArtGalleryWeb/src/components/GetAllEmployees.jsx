@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import FetchEmployees from "../hooks/FetchEmployees";
 import { Spin } from "antd";
 import { Link } from "react-router-dom";
+import { message } from "antd";
 
 const GetAllEmployees = ({ searchQuery }) => {
   const [employees, setEmployees] = useState([]);
@@ -38,8 +39,9 @@ const GetAllEmployees = ({ searchQuery }) => {
   return (
     <>
       {error ? (
-        alert("error fetching data")
+         message.error("Error fetching data")
       ) : (
+        
         <div className="All-cards">
           <div className="card">
             <p>Employee Name</p>
@@ -68,6 +70,7 @@ const GetAllEmployees = ({ searchQuery }) => {
             </div>
           ))}
         </div>
+       
       )}
     </>
   );

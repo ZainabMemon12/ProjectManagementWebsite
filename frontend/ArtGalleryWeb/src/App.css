@@ -190,6 +190,10 @@
 .card2-btn:hover {
   background-color: #593ebbc8;
 }
+.employeelist-admin-main-right{
+  height: 100vh;
+
+}
 
 .All-cards {
   min-height: 60vh;
