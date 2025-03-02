@@ -20,7 +20,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-    origin: ['http://localhost:5173',"https://project-management-website-backend.vercel.app/"], 
+    origin: 'http://localhost:5173', 
     methods: ["GET","POST","PUT","DELETE"],
     allowedHeaders:["Content-Type","Authorization"] ,
     credentials: true, 
@@ -30,10 +30,6 @@ app.use(cors({
 app.use("/api/admin",adminRoutes)
 app.use('/api/project', projectRoute);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 432a1f65a27887659fe5ba8289ce0a5af40678a9
 
 
 // mongodb connection
