@@ -19,7 +19,7 @@ const projectRoute = require('./routes/project.route.js');
 app.use(cors());
 
 app.use(cors({
-    origin: "https://projectmanagementwebsite.onrender.com", 
+    origin: "https://projectmanagementwebsite-frontend.onrender.com/", 
     methods: ["GET","POST","PUT","DELETE"],
     allowedHeaders:["Content-Type","Authorization"] ,
     credentials: true, 
