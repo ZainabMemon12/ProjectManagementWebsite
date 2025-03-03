@@ -15,9 +15,8 @@ const projectRoute = require('./routes/project.route.js');
 
 
 
-// middle wares 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 
 app.use(cors({
     origin: "https://projectmanagementwebsite.onrender.com/", 
@@ -25,6 +24,14 @@ app.use(cors({
     allowedHeaders:["Content-Type","Authorization"] ,
     credentials: true, 
 }));
+// middle wares 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
+
+app.get("/", (req, res) => {
+    res.send("Backend is live! 🚀");
+});
 
 // routes
 app.use("/api/admin",adminRoutes)
