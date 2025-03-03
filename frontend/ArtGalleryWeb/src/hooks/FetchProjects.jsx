@@ -2,7 +2,7 @@ import React from 'react'
 
 const FetchProjects = async () => {
  try{
-    const response = await fetch('http://localhost:4000/api/project/');
+    const response = await fetch('https://projectmanagementwebsite.onrender.com/api/project/');
     if(!response.ok){
         throw new Error(`HTTP error! status: ${response.status}`);
     }const data = await response.json()

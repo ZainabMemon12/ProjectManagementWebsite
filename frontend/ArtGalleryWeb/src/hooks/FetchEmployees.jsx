@@ -2,7 +2,7 @@ import React from 'react'
 
 const FetchEmployees = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/admin/');
+      const response = await fetch('https://projectmanagementwebsite.onrender.com/api/admin/');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
